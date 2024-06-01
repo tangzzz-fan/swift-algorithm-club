@@ -91,15 +91,15 @@ Here is an implementation of insertion sort in Swift:
 
 ```swift
 func insertionSort(_ array: [Int]) -> [Int] {
-    var a = array			 // 1
-    for x in 1..<a.count {		 // 2
-        var y = x
-        while y > 0 && a[y] < a[y - 1] { // 3
-            a.swapAt(y - 1, y)
-            y -= 1
+    var sortedArray = array			 // 1
+    for index in 1..<sortedArray.count {		 // 2
+        var currentIndex = index
+        while currentIndex > 0 && sortedArray[currentIndex] < sortedArray[currentIndex - 1] { // 3
+            sortedArray.swapAt(currentIndex - 1, currentIndex)
+            currentIndex -= 1
         }
     }
-    return a
+    return sortedArray
 }
 
 
@@ -114,11 +114,11 @@ insertionSort(list)
 
 Here is how the code works.
 
-1. Make a copy of the array. This is necessary because we cannot modify the contents of the `array` parameter directly. Like Swift's own `sort()`, the `insertionSort()` function will return a sorted *copy* of the original array.
+1. Make a copy of the array. This is necessary because we cannot modify the contents of the `array` parameter directly. Like Swift's own `sorted()`, the `insertionSort()` function will return a sorted *copy* of the original array.
 
-2. There are two loops inside this function. The outer loop looks at each of the elements in the array in turn; this is what picks the top-most number from the pile. The variable `x` is the index of where the sorted portion ends and the pile begins (the position of the `|` bar). Remember, at any given moment the beginning of the array -- from index 0 up to `x` -- is always sorted. The rest, from index `x` until the last element, is the unsorted pile.
+2. There are two loops inside this function. The outer loop looks at each of the elements in the array in turn; this is what picks the top-most number from the pile. The variable `currentIndex` is the index of where the sorted portion ends and the pile begins (the position of the `|` bar). Remember, at any given moment the beginning of the array -- from index 0 up to `currentIndex` -- is always sorted. The rest, from index `currentIndex` until the last element, is the unsorted pile.
 
-3. The inner loop looks at the element at position `x`. This is the number at the top of the pile, and it may be smaller than any of the previous elements. The inner loop steps backwards through the sorted array; every time it finds a previous number that is larger, it swaps them. When the inner loop completes, the beginning of the array is sorted again, and the sorted portion has grown by one element.
+3. The inner loop looks at the element at position `currentIndex`. This is the number at the top of the pile, and it may be smaller than any of the previous elements. The inner loop steps backwards through the sorted array; every time it finds a previous number that is larger, it swaps them. When the inner loop completes, the beginning of the array is sorted again, and the sorted portion has grown by one element.
 
 > **Note:** The outer loop starts at index 1, not 0. Moving the very first element from the pile to the sorted portion doesn't actually change anything, so we might as well skip it. 
 
@@ -154,17 +154,17 @@ In code that looks like this:
 
 ```swift
 func insertionSort(_ array: [Int]) -> [Int] {
-  var a = array
-  for x in 1..<a.count {
-    var y = x
-    let temp = a[y]
-    while y > 0 && temp < a[y - 1] {
-      a[y] = a[y - 1]                // 1
-      y -= 1
+  var sortedArray = array
+  for index in 1..<sortedArray.count {
+    var currentIndex = index
+    let temp = sortedArray[currentIndex]
+    while currentIndex > 0 && temp < sortedArray[currentIndex - 1] {
+      sortedArray[currentIndex] = sortedArray[currentIndex - 1]                // 1
+      currentIndex -= 1
     }
-    a[y] = temp                      // 2
+    sortedArray[currentIndex] = temp                      // 2
   }
-  return a
+  return sortedArray
 }
 ```
 
